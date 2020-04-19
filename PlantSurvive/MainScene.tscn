@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://background.tscn" type="PackedScene" id=2]
+[ext_resource path="res://DropletSpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://PlantEaterSpawner.tscn" type="PackedScene" id=4]
+[ext_resource path="res://WaterUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://MainScene.gd" type="Script" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 546.128, 36.3572 )
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="background" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 0 )
+centered = false
+
+[node name="player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 227.218, 428.308 )
+scale = Vector2( 0.867947, 0.867947 )
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2( 516.694, 582.009 )
+shape = SubResource( 1 )
+
+[node name="WallLeft" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
+position = Vector2( 1061.17, 291.397 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="WallRight" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
+position = Vector2( -36.1364, 266.344 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="KillZone" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+position = Vector2( 516.694, 702.262 )
+shape = SubResource( 1 )
+
+[node name="KillZonePlant" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZonePlant"]
+position = Vector2( -246.476, 337.682 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Control" parent="KillZonePlant" instance=ExtResource( 5 )]
+margin_left = -0.744171
+margin_top = -16.7286
+margin_right = -0.744171
+margin_bottom = -16.7286
+
+[node name="DropletSpawner" parent="." instance=ExtResource( 3 )]
+
+[node name="PlantEaterSpawner" parent="." instance=ExtResource( 4 )]
